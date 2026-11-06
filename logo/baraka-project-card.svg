@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700">
+  <rect width="1200" height="700" fill="#F4F5F5"/>
+  <g transform="translate(113 180) scale(1.8) translate(-120 -255)">
+    <g transform="translate(120 255) scale(1.6)">
+      <rect width="120" height="120" rx="26" fill="#32373B"/>
+      <g fill="none" stroke-width="12" stroke-linejoin="round" transform="translate(-3 -2)">
+        <path d="M42 60 H68 a17 17 0 0 1 0 34 H42" stroke="#2B7A1A"/>
+        <path d="M42 30 H63 a15 15 0 0 1 0 30 H42" stroke="#FFFFFF"/>
+        <path d="M42 30 V94" stroke="#FFFFFF" stroke-linecap="square"/>
+      </g>
+      <circle cx="91" cy="27" r="8" fill="#F28E13"/>
+    </g>
+    <text x="344" y="354" font-family="'Avenir Next', Avenir, 'Helvetica Neue', Arial, sans-serif" font-size="72" font-weight="700" letter-spacing="3" fill="#32373B">BARAKA</text>
+    <text x="347" y="398" font-family="'Avenir Next', Avenir, 'Helvetica Neue', Arial, sans-serif" font-size="21" font-weight="600" letter-spacing="8.6" fill="#2B7A1A">MANUFACTURING</text>
+  </g>
+</svg>

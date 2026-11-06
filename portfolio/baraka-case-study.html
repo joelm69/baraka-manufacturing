@@ -1,0 +1,373 @@
+<title>Baraka Manufacturing Case Study</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: one reading column; each brief question is a numbered section (the brief's own order) with answer, evidence chart, and "so what". */
+:root {
+  --bg: #F4F5F5; --surface: #FFFFFF; --ink: #32373B; --muted: #5E6468; --line: #DADDDF;
+  --green: #2B7A1A; --green-soft: #E2ECE0; --orange: #F28E13; --orange-text: #A85A00; --orange-soft: #FCE9D2; --silver: #9E9E9E;
+  --font-body: "Figtree", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #1B1E20; --surface: #24282B; --ink: #ECEEEF; --muted: #A9AFB3; --line: #3A3F43;
+  --green: #5DB14A; --green-soft: #22351F; --orange: #F5A14A; --orange-text: #F5A14A; --orange-soft: #3A2A18; --silver: #8C9296; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #1B1E20; --surface: #24282B; --ink: #ECEEEF; --muted: #A9AFB3; --line: #3A3F43;
+  --green: #5DB14A; --green-soft: #22351F; --orange: #F5A14A; --orange-text: #F5A14A; --orange-soft: #3A2A18; --silver: #8C9296; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 17px; line-height: 1.6; }
+.wrap { max-width: 860px; margin: 0 auto; padding-block: 48px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 56px; }
+h1, h2, h3 { text-wrap: balance; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 800; }
+h3 { font-size: 1.3rem; font-weight: 800; }
+p { margin: 0; max-width: 65ch; }
+.muted { color: var(--muted); }
+.label { font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.num { font-variant-numeric: tabular-nums; }
+.good { color: var(--green); font-weight: 700; }
+.bad { color: var(--orange-text); font-weight: 700; }
+a { color: var(--green); }
+a:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+/* Header */
+.brand { display: flex; align-items: center; gap: 14px; }
+.brand svg { width: 52px; height: 52px; flex: none; }
+.brand .name { font-weight: 800; letter-spacing: 0.12em; font-size: 1.05rem; line-height: 1.1; }
+.brand .sub { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.32em; color: var(--green); }
+.hero { display: grid; gap: 20px; }
+.hero .lede { font-size: 1.2rem; color: var(--muted); }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag { border: 1.5px solid var(--ink); border-radius: 999px; padding: 3px 14px; font-size: 0.85rem; font-weight: 600; }
+.tag.solid { background: var(--ink); color: var(--bg); }
+
+/* KPI strip: mirrors the dashboard's four cards */
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.kpi { background: var(--surface); padding: 16px 18px; display: grid; gap: 2px; }
+.kpi .v { font-size: 1.6rem; font-weight: 800; }
+.kpi .d { font-size: 0.9rem; }
+@media (max-width: 640px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Sections */
+section { display: grid; gap: 18px; }
+.q { display: grid; gap: 18px; padding-top: 28px; border-top: 1px solid var(--line); }
+.q-head { display: grid; gap: 6px; }
+.answer { font-size: 1.15rem; font-weight: 600; max-width: 65ch; }
+.sowhat { background: var(--surface); border-left: 4px solid var(--green); padding: 14px 18px; border-radius: 0 8px 8px 0; display: grid; gap: 6px; }
+.sowhat.warn { border-left-color: var(--orange); }
+.figure { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; display: grid; gap: 12px; min-width: 0; }
+.figure .cap { font-size: 0.85rem; color: var(--muted); }
+
+/* Horizontal bars */
+.bars { display: grid; gap: 8px; }
+.bar { display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr) 7.5rem; align-items: center; gap: 10px; font-size: 0.92rem; }
+.bar .track { height: 18px; background: transparent; }
+.bar .fill { height: 100%; border-radius: 3px; background: var(--ink); min-width: 3px; }
+.bar .fill.g { background: var(--green); }
+.bar .fill.o { background: var(--orange); }
+.bar .fill.s { background: var(--silver); }
+.bar .val { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+@media (max-width: 560px) { .bar { grid-template-columns: minmax(0, 7.5rem) minmax(0, 1fr) 6.2rem; font-size: 0.85rem; } }
+
+/* Tables */
+.tbl { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+td.r, th.r { text-align: right; }
+
+/* Heatmap */
+.heat td.c { text-align: center; font-weight: 600; }
+.h4 { background: color-mix(in srgb, var(--green) 85%, var(--surface)); color: #fff; }
+.h3 { background: color-mix(in srgb, var(--green) 62%, var(--surface)); color: #fff; }
+.h2 { background: color-mix(in srgb, var(--green) 38%, var(--surface)); }
+.h1 { background: color-mix(in srgb, var(--green) 16%, var(--surface)); }
+.h0 { background: var(--orange-soft); color: var(--orange-text); }
+
+/* Month strip */
+.months { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 4px; }
+.mcell { border-radius: 4px; padding: 8px 2px; text-align: center; font-size: 0.75rem; font-variant-numeric: tabular-nums; display: grid; gap: 2px; }
+.mcell b { font-size: 0.8rem; }
+.mcell.up { background: var(--green-soft); color: var(--green); }
+.mcell.dn { background: var(--orange-soft); color: var(--orange-text); }
+@media (max-width: 560px) { .months { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+
+/* Callout numbers */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 4px; }
+.stat .v { font-size: 1.5rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.stat .t { font-size: 0.88rem; color: var(--muted); }
+
+ol.recs { margin: 0; padding-left: 1.3rem; display: grid; gap: 12px; max-width: 65ch; }
+ul.plain { margin: 0; padding-left: 1.2rem; display: grid; gap: 8px; max-width: 65ch; }
+code { font-family: var(--font-mono); font-size: 0.85em; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px; }
+.link-note { font-size: 0.9rem; color: var(--muted); }
+footer { font-size: 0.85rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 20px; }
+</style>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="brand">
+      <svg viewBox="0 0 120 120" role="img" aria-label="Baraka Manufacturing logo">
+        <rect width="120" height="120" rx="26" fill="#32373B"/>
+        <g fill="none" stroke-width="12" stroke-linejoin="round" transform="translate(-3 -2)">
+          <path d="M42 60 H68 a17 17 0 0 1 0 34 H42" stroke="#2B7A1A"/>
+          <path d="M42 30 H63 a15 15 0 0 1 0 30 H42" stroke="#FFFFFF"/>
+          <path d="M42 30 V94" stroke="#FFFFFF" stroke-linecap="square"/>
+        </g>
+        <circle cx="91" cy="27" r="8" fill="#F28E13"/>
+      </svg>
+      <div><div class="name">BARAKA</div><div class="sub">MANUFACTURING</div></div>
+    </div>
+    <span class="label">Case study · Tableau Public · 2023–2025 data</span>
+    <h1>Sales are growing faster every year. Profit isn't keeping up.</h1>
+    <p class="lede">A three-page Tableau dashboard for a Kenyan consumer-goods manufacturer, built to show the finance team where profit is earned, where discounts eat it, and whether the business is on plan.</p>
+    <div class="tags">
+      <span class="tag solid">Tableau</span><span class="tag">Data modelling</span><span class="tag">Time intelligence</span><span class="tag">Dashboard design</span><span class="tag">Business analysis</span>
+    </div>
+    <p class="link-note">Interactive dashboard: link to Tableau Public to be added once published.</p>
+  </header>
+
+  <section aria-labelledby="glance">
+    <span class="label" id="glance">2025 at a glance (the dashboard's KPI cards)</span>
+    <div class="kpis">
+      <div class="kpi"><span class="label">Sales</span><span class="v num">KES 107.3M</span><span class="d good">▲ 7.7% vs 2024</span></div>
+      <div class="kpi"><span class="label">Profit</span><span class="v num">KES 26.8M</span><span class="d good">▲ 4.3% vs 2024</span></div>
+      <div class="kpi"><span class="label">Profit margin</span><span class="v num">25.0%</span><span class="d bad">▼ 0.8 pts vs 2024</span></div>
+      <div class="kpi"><span class="label">Vs sales plan</span><span class="v num">−KES 0.3M</span><span class="d bad">▼ 0.3% vs plan</span></div>
+    </div>
+    <p>Sales growth sped up from 5.8% in 2024 to 7.7% in 2025, but profit grew only 1.4% and then 4.3%. Margin slipped from <b>26.9%</b> in 2023 to <b>25.8%</b> and then <b>25.0%</b>. The rest of this page explains why, by answering the eight questions in the brief.</p>
+  </section>
+
+  <section aria-labelledby="brief">
+    <h2 id="brief">The brief</h2>
+    <p>Baraka Manufacturing sells six products (cooking oil, maize flour, bar soap, detergent, mango juice and tissue) to five customer segments across seven markets in Kenya, Uganda, Rwanda and Tanzania. I received 6,264 monthly sales records and 180 monthly targets for 2023–2025, and was asked to build a dashboard and a one-page note for the CFO.</p>
+    <div class="stats">
+      <div class="stat"><span class="label">Page 1</span><b>Overview</b><span class="t">KPI cards, monthly sales and profit vs last year</span></div>
+      <div class="stat"><span class="label">Page 2</span><b>Margin Drivers</b><span class="t">Profit and margin by segment, product and discount band</span></div>
+      <div class="stat"><span class="label">Page 3</span><b>Markets &amp; Plan</b><span class="t">Domestic vs export, actual vs target by month and segment</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="answers">
+    <h2 id="answers">The questions, answered</h2>
+    <p class="muted">Figures are for 2025 unless stated. Every number was checked against the raw data.</p>
+
+    <!-- Q1 -->
+    <article class="q">
+      <div class="q-head"><span class="label">Question 1 of 8</span><h3>Which segment brings in the most profit, and which has the lowest margin?</h3></div>
+      <p class="answer">Supermarkets bring in the most profit. Distributors have the lowest margin.</p>
+      <div class="figure">
+        <span class="label">Profit by segment, 2025 · margin on the right</span>
+        <div class="bars">
+          <div class="bar"><span>Supermarkets</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="val">12.3M · 27.2%</span></div>
+          <div class="bar"><span>Small shops</span><div class="track"><div class="fill g" style="width:48%"></div></div><span class="val">5.9M · <b class="good">31.6%</b></span></div>
+          <div class="bar"><span>Distributors</span><div class="track"><div class="fill o" style="width:36.6%"></div></div><span class="val">4.5M · <b class="bad">16.0%</b></span></div>
+          <div class="bar"><span>Hotels &amp; restaurants</span><div class="track"><div class="fill" style="width:20.3%"></div></div><span class="val">2.5M · 28.8%</span></div>
+          <div class="bar"><span>Government</span><div class="track"><div class="fill" style="width:13%"></div></div><span class="val">1.6M · 23.9%</span></div>
+        </div>
+        <span class="cap">Dashboard: Margin Drivers → profit by segment, shaded by margin.</span>
+      </div>
+      <div class="sowhat warn"><span class="label">So what</span><p>Distributors are the second-largest segment by sales (KES 27.9M) but keep only 16 shillings of profit per 100 sold, about half the rate of Small shops. Their margin has slipped from 18.2% in 2023.</p></div>
+    </article>
+
+    <!-- Q2 -->
+    <article class="q">
+      <div class="q-head"><span class="label">Question 2 of 8</span><h3>How does profit margin change from the None discount band to the High band, overall and within each segment?</h3></div>
+      <p class="answer">Margin falls at every step of discount and in every segment. Overall it drops from 30.1% to 12.4%, a fall of 17.7 points.</p>
+      <div class="figure">
+        <span class="label">Margin by discount band, 2025</span>
+        <div class="bars">
+          <div class="bar"><span>None</span><div class="track"><div class="fill" style="width:86%"></div></div><span class="val">30.1%</span></div>
+          <div class="bar"><span>Low</span><div class="track"><div class="fill" style="width:77.4%"></div></div><span class="val">27.1%</span></div>
+          <div class="bar"><span>Medium</span><div class="track"><div class="fill" style="width:64.6%"></div></div><span class="val">22.6%</span></div>
+          <div class="bar"><span>High</span><div class="track"><div class="fill o" style="width:35.4%"></div></div><span class="val bad">12.4%</span></div>
+        </div>
+      </div>
+      <div class="figure">
+        <span class="label">Margin by segment and discount band, 2025 (stronger green = higher margin)</span>
+        <div class="tbl">
+          <table class="heat">
+            <thead><tr><th>Segment</th><th class="r">None</th><th class="r">Low</th><th class="r">Medium</th><th class="r">High</th><th class="r">Drop</th></tr></thead>
+            <tbody>
+              <tr><td>Small shops</td><td class="c h4">33.6%</td><td class="c h4">32.0%</td><td class="c h3">28.2%</td><td class="c h2">20.9%</td><td class="r">−12.7 pts</td></tr>
+              <tr><td>Hotels &amp; restaurants</td><td class="c h4">30.7%</td><td class="c h3">29.8%</td><td class="c h3">25.5%</td><td class="c h1">18.9%</td><td class="r">−11.8 pts</td></tr>
+              <tr><td>Supermarkets</td><td class="c h3">29.5%</td><td class="c h3">27.4%</td><td class="c h2">24.3%</td><td class="c h1">17.5%</td><td class="r">−12.0 pts</td></tr>
+              <tr><td>Government</td><td class="c h3">27.0%</td><td class="c h3">25.6%</td><td class="c h2">21.8%</td><td class="c h0">11.2%</td><td class="r bad">−15.8 pts</td></tr>
+              <tr><td>Distributors</td><td class="c h2">23.5%</td><td class="c h2">21.7%</td><td class="c h1">17.6%</td><td class="c h0">10.2%</td><td class="r">−13.3 pts</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <span class="cap">Dashboard: Margin Drivers → margin by discount band, and the segment × band heatmap.</span>
+      </div>
+      <div class="sowhat warn"><span class="label">So what</span><p>A High-discount sale keeps less than half the margin of a full-price sale, and the High band is getting worse each year: 15.0% in 2023, 14.1% in 2024, 12.4% in 2025. Government loses the most points, but only about 5% of its sales are High-discount, so the cost is small.</p></div>
+    </article>
+
+    <!-- Q3 -->
+    <article class="q">
+      <div class="q-head"><span class="label">Question 3 of 8</span><h3>Which product has grown fastest since 2023?</h3></div>
+      <p class="answer">Mango Juice 1L. Sales rose from KES 5.9M in 2023 to KES 14.1M in 2025, up 139.7%. It also has the highest margin, at 34.4%.</p>
+      <div class="figure">
+        <span class="label">Sales growth, 2023 → 2025</span>
+        <div class="bars">
+          <div class="bar"><span>Mango Juice 1L</span><div class="track"><div class="fill g" style="width:100%"></div></div><span class="val good">▲ 139.7%</span></div>
+          <div class="bar"><span>Detergent 1kg</span><div class="track"><div class="fill" style="width:6.3%"></div></div><span class="val">▲ 8.8%</span></div>
+          <div class="bar"><span>Cooking Oil 1L</span><div class="track"><div class="fill" style="width:5.2%"></div></div><span class="val">▲ 7.2%</span></div>
+          <div class="bar"><span>Tissue 10-pack</span><div class="track"><div class="fill" style="width:4.6%"></div></div><span class="val">▲ 6.4%</span></div>
+          <div class="bar"><span>Bar Soap 800g</span><div class="track"><div class="fill" style="width:3%"></div></div><span class="val">▲ 4.2%</span></div>
+          <div class="bar"><span>Maize Flour 2kg</span><div class="track"><div class="fill" style="width:1.8%"></div></div><span class="val">▲ 2.5%</span></div>
+        </div>
+        <span class="cap">Dashboard: Margin Drivers → product profit and growth.</span>
+      </div>
+      <div class="sowhat"><span class="label">So what</span><p>Mango Juice produced KES 8.2M of the company's KES 13.1M sales growth since 2023. It is also the only product earning more profit than in 2023 (up 126.7%). The other five products all sold more but earned less, which is the margin squeeze in a single comparison. It is a recently launched product, so part of the growth is a new product ramping up.</p></div>
+    </article>
+
+    <!-- Q4 -->
+    <article class="q">
+      <div class="q-head"><span class="label">Question 4 of 8</span><h3>Which markets are behind target, and since when?</h3></div>
+      <p class="answer">Targets are set by segment and month only, so no market can be measured against plan. Judged on growth instead, Kigali is the only market falling behind, and it has shrunk since 2024. The company as a whole has been behind plan since January 2024.</p>
+      <div class="figure">
+        <span class="label">Market sales growth vs previous year</span>
+        <div class="tbl">
+          <table>
+            <thead><tr><th>Market</th><th>Type</th><th class="r">Sales 2025</th><th class="r">Growth 2024</th><th class="r">Growth 2025</th><th class="r">Margin 2025</th></tr></thead>
+            <tbody>
+              <tr><td>Nairobi</td><td>Domestic</td><td class="r">41.6M</td><td class="r">▲ 7.7%</td><td class="r">▲ 8.0%</td><td class="r">26.3%</td></tr>
+              <tr><td>Mombasa</td><td>Domestic</td><td class="r">18.6M</td><td class="r">▲ 6.0%</td><td class="r">▲ 8.4%</td><td class="r">26.2%</td></tr>
+              <tr><td>Kisumu</td><td>Domestic</td><td class="r">14.6M</td><td class="r">▲ 5.2%</td><td class="r">▲ 8.8%</td><td class="r">26.4%</td></tr>
+              <tr><td>Nakuru</td><td>Domestic</td><td class="r">12.5M</td><td class="r">▲ 5.5%</td><td class="r">▲ 9.3%</td><td class="r">26.6%</td></tr>
+              <tr><td>Kampala</td><td>Export</td><td class="r">8.8M</td><td class="r">▲ 6.2%</td><td class="r">▲ 7.6%</td><td class="r">18.6%</td></tr>
+              <tr><td>Dar es Salaam</td><td>Export</td><td class="r">7.4M</td><td class="r">▲ 7.3%</td><td class="r">▲ 8.8%</td><td class="r">19.4%</td></tr>
+              <tr><td><b>Kigali</b></td><td>Export</td><td class="r">3.8M</td><td class="r bad">▼ 10.4%</td><td class="r bad">▼ 7.5%</td><td class="r">18.9%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="figure">
+        <span class="label">Company sales vs target by year</span>
+        <div class="tbl">
+          <table>
+            <thead><tr><th>Year</th><th class="r">Variance</th><th class="r">Variance %</th><th class="r">Months behind plan</th></tr></thead>
+            <tbody>
+              <tr><td>2023</td><td class="r good">+KES 1.95M</td><td class="r good">▲ 2.1%</td><td class="r">2 of 12</td></tr>
+              <tr><td>2024</td><td class="r bad">−KES 2.10M</td><td class="r bad">▼ 2.1%</td><td class="r bad">12 of 12</td></tr>
+              <tr><td>2025</td><td class="r bad">−KES 0.29M</td><td class="r bad">▼ 0.3%</td><td class="r">8 of 12</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <span class="cap">Dashboard: Markets &amp; Plan → market growth, monthly actual vs target, and the 36-month segment heatmap.</span>
+      </div>
+      <div class="sowhat warn"><span class="label">So what</span><p>Supermarkets, the largest segment, were behind plan for 15 months in a row (June 2024 to August 2025) before recovering. Distributors were still behind in 7 of 12 months of 2025. Export markets earn about 7 points less margin than domestic ones (19.0% vs 26.3%). Part of the 2024 miss reflects the plan itself: targets rose about 10% while sales grew 5.8%.</p></div>
+    </article>
+
+    <!-- Q5 -->
+    <article class="q">
+      <div class="q-head"><span class="label">Question 5 of 8</span><h3>Which months are strongest and weakest each year?</h3></div>
+      <p class="answer">December is the strongest month and January the weakest, in every year, for both sales and profit.</p>
+      <div class="figure">
+        <div class="tbl">
+          <table>
+            <thead><tr><th>Year</th><th class="r">December sales</th><th class="r">January sales</th><th class="r">December profit</th><th class="r">January profit</th></tr></thead>
+            <tbody>
+              <tr><td>2023</td><td class="r">KES 10.4M</td><td class="r">KES 6.5M</td><td class="r">KES 2.9M</td><td class="r">KES 1.7M</td></tr>
+              <tr><td>2024</td><td class="r">KES 10.8M</td><td class="r">KES 6.9M</td><td class="r">KES 2.7M</td><td class="r">KES 1.8M</td></tr>
+              <tr><td>2025</td><td class="r">KES 11.8M</td><td class="r">KES 7.4M</td><td class="r">KES 3.0M</td><td class="r">KES 1.8M</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <span class="label">2025 sales vs target by month</span>
+        <div class="months" role="img" aria-label="2025 variance to target by month: above plan in March, September, November and December; below in the other months">
+          <div class="mcell dn"><b>Jan</b>−1.0%</div><div class="mcell dn"><b>Feb</b>−0.3%</div><div class="mcell up"><b>Mar</b>+0.4%</div><div class="mcell dn"><b>Apr</b>−1.3%</div>
+          <div class="mcell dn"><b>May</b>−1.1%</div><div class="mcell dn"><b>Jun</b>−2.3%</div><div class="mcell dn"><b>Jul</b>−1.4%</div><div class="mcell dn"><b>Aug</b>−0.4%</div>
+          <div class="mcell up"><b>Sep</b>+0.8%</div><div class="mcell dn"><b>Oct</b>−0.3%</div><div class="mcell up"><b>Nov</b>+1.6%</div><div class="mcell up"><b>Dec</b>+1.3%</div>
+        </div>
+        <span class="cap">Dashboard: Overview → monthly trends with peak and low labelled; Markets &amp; Plan → actual vs target by month.</span>
+      </div>
+      <div class="sowhat"><span class="label">So what</span><p>December sells about 60% more than January every year. The pattern is seasonal and predictable, so stock, staffing and cash planning should follow it. June and July 2025 also stand out: sales were above 2024 but profit fell below it, because more sales went out at Medium discount.</p></div>
+    </article>
+
+    <!-- Q6 -->
+    <article class="q">
+      <div class="q-head"><span class="label">Question 6 of 8</span><h3>Where is discounting costing the most margin?</h3></div>
+      <p class="answer">With Distributors, in the High discount band.</p>
+      <div class="stats">
+        <div class="stat"><span class="v">50%</span><span class="t">of all 2025 discounts (KES 2.8M of 5.5M) went to Distributors, who produce 26% of sales</span></div>
+        <div class="stat"><span class="v">41%</span><span class="t">of Distributors' sales are at High discount, against 4–7% for most other segments</span></div>
+        <div class="stat"><span class="v bad">10.2%</span><span class="t">margin on Distributors at High discount, the lowest cell on the dashboard</span></div>
+        <div class="stat"><span class="v">2.0M vs 1.2M</span><span class="t">discounts given vs profit kept on those same sales</span></div>
+      </div>
+      <div class="sowhat warn"><span class="label">So what</span><p>On Distributors' High-discount sales, Baraka gave away 1.7 times more in discounts than it kept in profit. Total discounts are rising too: KES 4.9M in 2023, 5.2M in 2024 and 5.5M in 2025.</p></div>
+    </article>
+
+    <!-- Q7 -->
+    <article class="q">
+      <div class="q-head"><span class="label">Question 7 of 8</span><h3>Which segment should get more budget next year, and what evidence supports it?</h3></div>
+      <p class="answer">Small shops, with Mango Juice as the lead product.</p>
+      <div class="figure">
+        <div class="tbl">
+          <table>
+            <thead><tr><th>2025 evidence</th><th class="r">Small shops</th><th class="r">Distributors (contrast)</th></tr></thead>
+            <tbody>
+              <tr><td>Profit margin</td><td class="r good">31.6% (highest)</td><td class="r bad">16.0% (lowest)</td></tr>
+              <tr><td>Profit growth vs 2024</td><td class="r good">▲ 5.8% (fastest)</td><td class="r">▲ 0.6%</td></tr>
+              <tr><td>Profit growth since 2023</td><td class="r good">▲ 10.8% (fastest)</td><td class="r bad">▼ 0.7%</td></tr>
+              <tr><td>Sales at High discount</td><td class="r good">4%</td><td class="r bad">41%</td></tr>
+              <tr><td>Vs plan</td><td class="r good">+0.4%</td><td class="r bad">−0.9%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="sowhat"><span class="label">So what</span><p>Each extra shilling of Small-shop sales earns about twice the profit of a Distributor shilling, without heavy discounting. Selling Mango Juice (34.4% margin) through this channel puts the best product through the best segment. Supermarkets remain the largest profit pool at KES 12.3M and should be protected, but growth money is better spent on Small shops. Because Small shops are smaller (KES 18.8M of sales), I would start with a pilot and track margin monthly.</p></div>
+    </article>
+
+    <!-- Q8 -->
+    <article class="q">
+      <div class="q-head"><span class="label">Question 8 of 8</span><h3>What would you change in the discount policy?</h3></div>
+      <ol class="recs">
+        <li><b>Cap the High band, starting with Distributors.</b> Allow High discounts only for clear conditions such as volume tiers or early payment. Aim to bring Distributors' High-band share down from 41% toward 10–15%.</li>
+        <li><b>Set a margin floor.</b> Any deal below about 15% margin needs finance sign-off. The High band currently averages 12.4% and has fallen every year.</li>
+        <li><b>Review discounting monthly.</b> Track discount % and High-band share by segment on the dashboard, so a shift like June–July 2025 is caught within the month instead of at year end.</li>
+      </ol>
+      <div class="sowhat"><span class="label">Expected impact</span><p>Moving half of Distributors' High-band sales to the Medium band would add roughly KES 0.4M of profit a year, assuming volume holds. Some Distributors may buy less, but at a 10% margin that trade-off is worth testing.</p></div>
+    </article>
+  </section>
+
+  <section aria-labelledby="build">
+    <h2 id="build">How I built it</h2>
+    <h3>Data model</h3>
+    <p>Sales and targets are recorded at different levels of detail. Each sale is a month, segment, market, product and discount band (6,264 rows). Each target is just a month and segment (180 rows). My first attempt joined them on segment, which copied every sale once for each month's target and produced 225,504 rows (6,264 × 36), inflating every total.</p>
+    <p>I fixed it by unioning the two tables into one (6,444 rows), so each value exists once, then relating that table to shared Date, Segment, Market and Product tables. One filter now controls both sales and targets. Target rows have no market or product, so selecting a market hides the plan charts; the dashboard says so in a note.</p>
+    <h3>Measures and time intelligence</h3>
+    <ul class="plain">
+      <li>A measure library of named calculations (Total Sales, Gross Sales, Total Discounts, Discount %, COGS, Total Profit, Profit Margin, Units Sold, Target Sales, Variance to Target, Variance %), so every chart uses one definition.</li>
+      <li>Margins are calculated as a ratio of totals (<code>SUM(profit) / SUM(sales)</code>), never as an average of row-level margins.</li>
+      <li>A <b>Selected Year</b> parameter drives current-year and last-year measures such as <code>SUM(IF YEAR([month]) = [Selected Year] - 1 THEN [Sales] END)</code>. A normal year filter would have removed last year's rows and broken every comparison.</li>
+      <li>The fact table's raw month, segment, market and product columns are hidden. They duplicate the shared dimension tables, and using them would stop filters from reaching the targets.</li>
+    </ul>
+    <h3>Design choices</h3>
+    <ul class="plain">
+      <li>Colour carries meaning only: green for good, orange for bad, charcoal and grey for everything else. Colour is tied to stable fields so it stays correct when the year changes.</li>
+      <li>The variance heatmap's diverging palette is centred at zero, so grey always means "on plan".</li>
+      <li>Click a segment to filter the Margin Drivers page; click any mark to highlight it across all charts.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="limits">
+    <h2 id="limits">Limitations</h2>
+    <ul class="plain">
+      <li>Profit here is gross profit: sales minus discounts minus cost of goods. Overheads and tax are not in the data.</li>
+      <li>Targets exist only by segment and month. I recommend setting market-level targets from 2026.</li>
+      <li>2023 is the first year of data, so growth comparisons start in 2024.</li>
+      <li>The discount-policy impact assumes customers keep buying the same volume.</li>
+    </ul>
+  </section>
+
+  <footer>
+    Portfolio project based on a practice brief and dataset. Analysis and dashboard by Joel Mutiso, built in Tableau Public.
+  </footer>
+</div>

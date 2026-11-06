@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <title>Baraka Manufacturing mark</title>
+  <!-- Charcoal tile -->
+  <rect width="120" height="120" rx="26" fill="#32373B"/>
+  <!-- Geometric B: white stem and upper bowl, green lower bowl (growth) -->
+  <g fill="none" stroke-width="12" stroke-linejoin="round" transform="translate(-3 -2)">
+    <path d="M42 60 H68 a17 17 0 0 1 0 34 H42" stroke="#2B7A1A"/>
+    <path d="M42 30 H63 a15 15 0 0 1 0 30 H42" stroke="#FFFFFF"/>
+    <path d="M42 30 V94" stroke="#FFFFFF" stroke-linecap="square"/>
+  </g>
+  <!-- Orange sun / mango: the "baraka" (blessing) -->
+  <circle cx="91" cy="27" r="8" fill="#F28E13"/>
+</svg>
