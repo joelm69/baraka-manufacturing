@@ -7,7 +7,7 @@
 **Sales are growing faster every year. Profit isn't keeping up.** This project is a three-page Tableau dashboard that shows a Kenyan consumer-goods manufacturer why, where its profit is earned, where discounts eat it and whether the business is on plan.
 
 - **Interactive dashboard:** [Tableau Public](https://public.tableau.com/app/profile/joel.mutiso/viz/BarakaManufacturing/PerformanceOverview)
-- **Case study:** [Portfolio page](https://joeldataportfolio.streamlit.app/~/+/baraka_manufacturing)
+- **Case study:** [Portfolio page](https://joeldataportfolio.streamlit.app/baraka_manufacturing)
 
 **Tools:** Tableau · Excel · Python (pandas, for validating every figure)
 
